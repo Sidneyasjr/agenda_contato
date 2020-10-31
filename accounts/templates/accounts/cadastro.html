@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block titulo %}Cadastro | {% endblock %}
+{% block conteudo %}
+    <h1>Cadastro</h1>
+    <form method="POST" action="{% url 'cadastro' %}">
+        {% include 'parciais/_messages.html' %}
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Nome</label>
+                    <input type="text" name="nome" class="form-control" value="{{ request.POST.nome }}">
+                </div>
+                <div class="col-md-6">
+                    <label>Sobrenome</label>
+                    <input type="text" name="sobrenome" class="form-control" value="{{ request.POST.sobrenome }}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Usuario</label>
+                    <input type="text" name="usuario" class="form-control" value="{{ request.POST.usuario }}">
+                </div>
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ request.POST.email }}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Senha</label>
+                    <input type="password" name="senha" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Repita a Senha</label>
+                    <input type="password" name="senha2" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+{% endblock %}

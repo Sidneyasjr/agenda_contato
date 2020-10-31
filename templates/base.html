@@ -1,41 +1,50 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt_BR">
 
 <head>
 
-    <title>Agenda</title>
+    <title>{% block titulo %}{% endblock %}Agenda</title>
     {% include 'parciais/_head.html' %}
 
 </head>
 
-<body>
+<body id="page-top">
 
-{% include 'parciais/_nav.html' %}
-<!-- Page Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="container-fluid my-5">
-                <form action="{% url 'busca' %}" method="">
-                    <div class="form-group row">
-                        <div class="col-12">
-                            <input class="form-control" type="search" value="{{ request.GET.termo }}" id="search-input"
-                                   placeholder="Digite sua pesquisa"
-                                   name="termo">
-                            {% include 'parciais/_messages.html' %}
-                        </div>
-                    </div>
-                </form>
+<div id="wrapper">
+    <!-- Sidebar -->
+    {% include 'parciais/_sidebar.html' %}
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            {% include 'parciais/_nav.html' %}
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                {% block conteudo %} {% endblock %}
             </div>
-            {% block conteudo %} {% endblock %}
+
         </div>
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Sidney Andrade 2020</span>
+                </div>
+            </div>
+        </footer>
     </div>
 </div>
 
 <!-- Bootstrap core JavaScript -->
-<script src="{% static 'vendor/jquery/jquery.slim.min.js' %}"></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
 <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+<script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 
 </body>
 

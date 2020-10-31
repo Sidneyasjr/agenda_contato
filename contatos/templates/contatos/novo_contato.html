@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block titulo %}Novo Contato | {% endblock %}
+{% block conteudo %}
+    <h1>Novo Contato</h1>
+    <form method="POST" action="{% url 'novo_contato' %}">
+        {% include 'parciais/_messages.html' %}
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>*Nome</label>
+                    <input type="text" name="nome" class="form-control" required value="{{ request.POST.nome }}">
+                </div>
+                <div class="col-md-6">
+                    <label>*Sobrenome</label>
+                    <input type="text" name="sobrenome" class="form-control" required value="{{ request.POST.sobrenome }}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>*Telefone</label>
+                    <input type="text" name="telefone" class="form-control" required value="{{ request.POST.telefone }}">
+                </div>
+                <div class="col-md-6">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ request.POST.email }}">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>*Categoria</label>
+                    <select class="form-control" required name="categoria">
+                        <option value="" selected disabled>Selecione a categoria</option>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id }}">{{ categoria.id}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Foto</label>
+                    <input type="file" name="foto" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Descrição</label>
+            <textarea class="form-control" name="descricao" rows="3">{{ request.POST.descricao }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Salvar</button>
+    </form>
+    {{ contato }}
+{% endblock %}

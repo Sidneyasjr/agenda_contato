@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+    <h1 class="h3 mb-2 text-gray-800">Minha Agenda</h1>
+
+    <div class="card shadow  container">
+
+        <div class="card-header">
+                {% if 'contatos' in request.path %}
+                    <!-- Topbar Search -->
+                    <form method="GET" action="{% url 'busca' %}">
+                        <div class="input-group">
+                            <input type="search" class="form-control bg-light border-0"
+                                   placeholder="Pesquisar por..."
+                                   aria-label="Search" aria-describedby="basic-addon2" value="{{ request.GET.termo }}"
+                                   name="termo">
+                        </div>
+                        {% include 'parciais/_messages.html' %}
+                    </form>
+                {% endif %}
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Sobrenome</th>
+                        <th>Telefone</th>
+                        <th>Categoria</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for contato in contatos %}
+
+                        <tr>
+                            <td>
+                                <a href="{% url 'ver_contato' contato.id %}"> {{ contato.nome }}</a>
+                            </td>
+                            <td>
+                                <a href="{% url 'ver_contato' contato.id %}"> {{ contato.sobrenome }}</a>
+                            </td>
+                            <td>{{ contato.telefone }}</td>
+                            <td>{{ contato.categoria }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% for pagina in contatos.paginator.page_range %}
+                            {% if contatos.number == pagina %}
+                                <li class="page-item active"><a class="page-link"
+                                                                href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{ pagina }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item"><a class="page-link"
+                                                         href="?p={{ pagina }}&termo={{ request.GET.termo }}">{{ pagina }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
